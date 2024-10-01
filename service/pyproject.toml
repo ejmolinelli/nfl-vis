@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "nfl-viz"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastparquet = "^2024.5.0"
+fastapi = "^0.115.0"
+pandas = "^2.2.3"
+
+
+[tool.poetry.group.analysis.dependencies]
+pandas = "^2.2.3"
+jupyter = "^1.1.1"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.11.2"
+pandas-stubs = "^2.2.2.240909"
+fastapi = {extras = ["standard"], version = "^0.115.0"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
