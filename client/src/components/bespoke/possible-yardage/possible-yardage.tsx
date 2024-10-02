@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import {PossibleYardageDriveRecord} from '../../../types/possible-yards'
-import { axisBottom, axisLeft, scaleLinear, select, Series, stack, Selection, Stack, scaleBand } from 'd3';
+import { axisBottom, axisLeft, scaleLinear, select, Series, stack, Selection, Stack, scaleBand, interpolateRgbBasis, rgb } from 'd3';
 import { computeDimensions, FigureDimensions, setPlotArea, setSVG, SvgSelection } from '../../dataviz/utils';
 import { PlotAxis } from '../../dataviz/types/axes';
+
+import '../../../styles/nfl.scss';
 
 /*
 - stacked bar plot of earned vs. possible yardage
@@ -87,21 +89,29 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
 
     const drawBars = (g:SvgSelection, dim:FigureDimensions, x:PlotAxis, y:PlotAxis, stackedData:any):void =>{
 
+
         // create a new group for each stack level
         const barsel:SvgSelection = g.selectAll('g.bars').data(stackedData)
             .join('g').classed('bars',true)
-            .style('fill',(d,i)=>{
-                console.log(d);
+            .attr("class",(_,i)=>{
                 if (i==0){
-                    return "green";
-                } else{
-                    return "gray";
+                    return "gained-yards";
+                } else {
+                    return "left-yards";
                 }
             });
+        
+        const ly = g.select("g.left-yards");
+        console.log(ly);
 
-        // for each stack level, plot all bars
-        barsel.selectAll('rect').data(d=>d).join('rect')
+        // plot gained yards by team
+        g.selectAll("g.gained-yards").data(stackedData[0])
+            .enter()
+            .append('rect')
             .attr('width',20)
+            .attr('class',(d)=>{
+                return `team-${String(d.data['team']).toLowerCase()}`;
+            })
             .attr('x',(d,i)=>{
                 return x.scale(i.toString());
             })
@@ -111,6 +121,24 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
             .attr('height',(d)=>{
                 return y.scale(d[0]) - y.scale(d[1]);
             });
+
+        g.selectAll("g.left-yards").data(stackedData[1])
+            .enter()
+            .append('rect')
+            .attr('width',20)
+            .attr('fill',(d)=>{
+                return rgb(100,100,100,0.25);
+            })
+            .attr('x',(d,i)=>{
+                return x.scale(i.toString());
+            })
+            .attr('y',(d)=>{
+                return y.scale(d[1]);
+            })
+            .attr('height',(d)=>{
+                return y.scale(d[0]) - y.scale(d[1]);
+            });
+
     }
 
     const draw = useCallback((stackedData)=>{

@@ -1,0 +1,351 @@
+// NFL team colors
+:root{
+    // arizona cardinals
+    --az-red: #97233F;
+    --az-black: #000;
+    --az-yellow: #FFB612;
+    --az-white: #FFF;
+
+    // atlanta falcons
+    --atl-red: #A71930;
+    --atl-black: #000;
+    --atl-silver: #A5ACAF;
+
+    // baltimore ravens
+    --bal-purple: #241773;
+    --bal-black: #000;
+    --bal-gold: #9E7C0C;
+    --bal-red: #C60C30;
+
+    // buffalo bills
+    --buf-blue: #00338D;
+    --buf-red: #C60C30;
+    --buf-white: #FFF;
+
+    // carolina panthers
+    --car-blue: #0085CA;
+    --car-black: #101820;
+    --car-silver: #BFC0BF;
+
+    // chicago bears
+    --chc-navy: #0B162A;
+    --chc-orange: #C83803;
+    --chc-white: #FFF;
+
+    // cincinnati bengals
+    --cin-orange: #FB4F14;
+    --cin-black: #000000;
+    --cin-white: #FFF;
+
+    // cleveland browns
+    --cle-brown:  #311D00;
+    --cle-orange: #FF3C00;
+    --cle-white: #FFFFFF;
+
+    // dallas cowboys
+    --dal-royal-blue: #003594;
+    --dal-dark-blue: #041E42;
+    --dal-silver:  #869397;
+    --dal-silver-green: #7F9695;
+    --dal-white: #FFF;
+
+    // denver broncos
+    --den-orange: #FB4F14;
+    --den-blue: #002244;
+    --den-white: #FFF;
+
+    // detroit lions
+    --det-blue: #0076B6;
+    --det-silver: #B0B7BC;
+    --det-white: #FFF;
+    --det-black: #000;
+
+    // green-bay packers
+    --gb-green: #273d38;
+    --gb-gold: #FFB612;
+    --gb-white: #fff;
+
+    // houston texans
+    --tex-blue: #03202F;
+    --tex-red: #A71930;
+    --tex-white: #FFF;
+
+    // indianapolis colts
+    --ind-blue: #002C5F;
+    --ind-gray: #A2AAAD;
+    --ind-white: #FFF;
+
+    // jacksonville jaguars
+    --jax-black: #101820;
+    --jax-gold: #D7A22A;
+    --jax-dark-gold: #9F792C;
+    --jax-teal: #006778;
+
+    // kansas city chiefs
+    --kc-red: #E31837;
+    --kc-gold: #FFB81C;
+    --kc-white: #fff;
+
+    // las vegas raiders;
+    --lv-black: #000000;
+    --lv-silver: #A5ACAF;
+    --lv-white: #FFF;
+
+    // los angeles chargers
+    --lac-blue: #0080C6;
+    --lac-gold: #FFC20E;
+    --lac-white: #FFF;
+
+    // los angeles rams
+    --lar-blue: #003594;
+    --lar-gold: #FFA300;
+    --lar-dark-gold: #FF8200;
+    --lar-yellow: #FFD100;
+    --lar-white: #FFFFFF;
+
+    // miami dolphins
+    --mia-aqua: #008E97;
+    --mia-orange: #FC4C02;
+    --mia-blue:  #005778;
+
+    // minnesota vikings
+    --min-purple: #4F2683;
+    --min-gold: #FFC62F;
+    --min-white: #FFF;
+
+    // new england patriots
+    --ne-blue: #002244;
+    --ne-red: #C60C30;
+    --ne-silver: #B0B7BC;
+
+    // new orleans saints
+    --no-gold: #D3BC8D;
+    --no-black: #101820;
+    --no-white: #FFF;
+
+    // new york giants
+    --nyg-blue: #0B2265;
+    --nyg-red: #A71930;
+    --nyg-silver: #A5ACAF;
+
+    // new york jets
+    --nyj-green: #125740;
+    --nyj-black: #000;
+    --nyj-white: #FFF;
+
+    // philadelphia eagles
+    --phi-green: #004C54;
+    --phi-silver: #A5ACAF;
+    --phi-silver-helmet: #ACC0C6;
+    --phi-black: #000000;
+    --phi-charcoal: #565A5C;
+
+    // pittsburgh steelers
+    --pit-gold: #FFB612;
+    --pit-black: #101820;
+    --pit-blue: #003087;
+    --pit-red: #C60C30;
+    --pit-silver:#A5ACAF;
+
+    // san francisco 49ers
+    --sf-red: #AA0000;
+    --sf-gold: #B3995D;
+    --sf-white: #FFF;
+
+    // seattle seahawks
+    --sea-navy: #002244;
+    --sea-green: #69BE28;
+    --sea-gray: #A5ACAF;
+
+    // tampa bay buccaneers
+    --tb-red: #D50A0A;
+    --tb-orange: #FF7900;
+    --tb-black: #0A0A08;
+    --tb-gray: #B1BABF;
+    --tb-pewter: #34302B;
+
+    // tennessee titans
+    --ten-navy: #0C2340;
+    --ten-blue: #4B92DB;
+    --ten-red: #C8102E;
+    --ten-silver: #8A8D8F;
+    --ten-wolfgray: #A2AAAD;
+    --ten-steelgray:  #54585A;
+
+    // washington commanders
+    --was-burgundy: #5A1414;
+    --was-gold: #FFB612;
+    --was-white: #FFF;
+    --was-black: #000;
+}
+
+
+// single tone, 2 color combinations
+:root{
+    // arizona cardinals
+    --az-primary: var(--az-red);
+    --az-secondary: var(--az-white);
+
+    // atlanta falcons
+    --atl-primary: var(--atl-red);
+    --atl-secondary: var(--atl-black);
+
+    // baltimore ravens
+    --bal-primary: var(--bal-purple);
+    --bal-secondary:var(--bal-gold)
+
+    // buffalo bills
+    --buf-primary: var(--buf-blue);
+    --buf-secondary: var(--buf-red);
+
+    // carolina panthers
+    --car-primary: var(--car-blue);
+    --car-secondary: var(--car-silver);
+
+    // chicago bears
+    --chc-primary: var(--chc-navy);
+    --chc-secondary: var(--chc-orange);
+
+    // cincinnati bengals
+    --cin-primary: var(--cin-orange);
+    --cin-secondary: var(--cin-black);
+
+    // cleveland browns
+    --cle-primary: var(--cle-orange);
+    --cle-secondary:var(--cle-brown);
+
+    // dallas cowboys
+    --dal-primary: var(--dal-royal-blue);
+    --dal-secondary: var(--dal-silver);
+
+    // denver broncos
+    --den-primary: var(--den-blue);
+    --den-secondary: var(--den-orange);
+
+    // detroit lions
+    --det-primary: var(--det-blue);
+    --det-secondary: var(--det-silver);
+
+    // green-bay packers
+    --gb-primary: var(--gb-green);
+    --gb-secondary: var(--gb-gold);
+
+    // houston texans
+    --tex-primary: var(--tex-blue);
+    --tex-secondary: var(--tex-red);
+
+    // indianapolis colts
+    --ind-primary: var(--ind-blue);
+    --ind-secondary: var(--ind-gray);
+
+    // jacksonville jaguars
+    --jax-primary: var(--jax-teal);
+    --jax-secondary: var(--jax-gold);
+
+    // kansas city chiefs
+    --kc-primary: var(--kc-red);
+    --kc-secondary: var(--kc-gold);
+
+    // las vegas raiders;
+    --lv-primary: var(--lv-black);
+    --lv-secondary: var(--lv-silver);
+
+    // los angeles chargers
+    --lac-primary: var(--lac-blue);
+    --lac-secondary: var(--lac-gold);
+
+    // los angeles rams
+    --lar-primary: var(--lar-blue);
+    --lar-secondary: var(--lar-yellow);
+
+    // miami dolphins
+    --mia-primary: var(--mia-aqua);
+    --mia-secondary: var(--mia-orange);
+
+    // minnesota vikings
+    --min-primary: var(--min-purple);
+    --min-secondary: var(--min-gold);
+
+    // new england patriots
+    --ne-primary: var(--ne-blue);
+    --ne-secondary: var(--ne-red);
+
+    // new orleans saints
+    --no-primary: var(--no-gold);
+    --no-secondary: var(--no-black);
+
+    // new york giants
+    --nyg-primary: var(--nyg-blue);
+    --nyg-secondary: var(--nyg-red);
+
+    // new york jets
+    --nyj-primary: var(--nyj-green);
+    --nyj-secondary: var(--nyj-white);
+
+    // philadelphia eagles
+    --phi-primary: var(--phi-green);
+    --phi-secondary: var(--phi-charcoal);
+
+    // pittsburgh steelers
+    --pit-primary: var(--pit-gold);
+    --pit-secondary: var(--pit-black);
+    
+    // san francisco 49ers
+    --sf-primary: var(--sf-gold);
+    --sf-secondary: var(--sf-red);
+    
+    // seattle seahawks
+    --sea-primary: var(--sea-green);
+    --sea-secondary: var(--sea-navy);
+
+    // tampa bay buccaneers
+    --tb-primary: var(--tb-red);
+    --tb-secondary: var(--tb-black);
+
+    // tennessee titans
+    --ten-primary: var(--ten-blue);
+    --ten-secondary: var(--ten-wolfgray);
+
+    // washington commanders
+    --was-primary: var(--was-burgundy);
+    --was-secondary: var(--was-gold);
+}
+
+.team{
+    &-az{}
+    &-atl{}
+    &-bal{
+        fill: var(--bal-primary);
+    }
+    &-buf{}
+    &-car{}
+    &-chc{}
+    &-cin{}
+    &-cle{}
+    &-dal{}
+    &-den{}
+    &-det{}
+    &-gb{}
+    &-tex{}
+    &-ind{}
+    &-jax{}
+    &-kc{
+        fill: var(--kc-primary);
+    }
+    &-lv{}
+    &-lac{}
+    &-lar{}
+    &-mia{}
+    &-min{}
+    &-ne{}
+    &-no{}
+    &-nyg{}
+    &-nyj{}
+    &-phi{}
+    &-pit{}
+    &-sf{}
+    &-sea{}
+    &-tb{}
+    &-ten{}
+    &-was{}
+}
