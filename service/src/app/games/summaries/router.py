@@ -83,5 +83,5 @@ def get_gameweek_drive_summaries(year:int=2024, game_week:int=1):
 
 # get drive summary for a single team for a year
 @summaries.get('/year/{year}/team/{team}')
-def get_team_drive_summary():
+def get_team_drive_summary(year:int, team:str):
     pass
