@@ -10,6 +10,8 @@ import PossibleYardage from './components/bespoke/possible-yardage/possible-yard
 
 export const App = () =>{
 	const [data,setData] = useState([]);
+	const [game2,setGame2] = useState([]);
+	
 	useEffect(()=>{
 		const g1 = '2024090500';
 		const g2 = '2024090800';
@@ -18,8 +20,13 @@ export const App = () =>{
 		Axios.get(`http://localhost:8000/summaries/${g4}/drive_summary`).pipe(
 			map(result=>result.data)
 		).subscribe((gamedata)=>{
-			console.log(gamedata);
 			setData(gamedata);
+		});
+
+		Axios.get(`http://localhost:8000/summaries/2024092207/drive_summary`).pipe(
+			map(result=>result.data)
+		).subscribe((gamedata)=>{
+			setGame2(gamedata);
 		});
 	},[])
 	return <BlueprintProvider>
@@ -29,6 +36,8 @@ export const App = () =>{
 			<div>
 				<p>Content goes here</p>
 				<PossibleYardage data={data} width={500} height={500} />
+				<br/>
+				<PossibleYardage data={game2} width={500} height={500} />
 			</div>
 			
 		</BiPanel>

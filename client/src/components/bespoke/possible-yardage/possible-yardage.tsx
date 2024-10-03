@@ -138,6 +138,16 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
 
     }
 
+    const drawTitle = (g:SvgSelection, dim:FigureDimensions, data) =>{
+        const titleGroup = g.append('g').attr('class','plot-title')
+            .attr('transform',`translate(${dim.width/2},${dim.margin.top})`)
+            .append('text').attr('text-anchor',"middle")
+            .style("fill","white")
+            .text(`${data[0]['team_1']} vs ${data[0]['team_2']}`);
+
+        return titleGroup;
+    }
+
     const draw = useCallback((stackedData)=>{
         if (stackedData[0].length==0){
             return;
@@ -156,6 +166,9 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
 
         // create and draw bars
         drawBars(plotArea, figdim, x, y, stackedData);
+
+        // draw ttitle
+        drawTitle(svg, figdim, data);
 
 
 
