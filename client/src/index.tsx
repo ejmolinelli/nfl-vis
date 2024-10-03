@@ -11,7 +11,11 @@ import PossibleYardage from './components/bespoke/possible-yardage/possible-yard
 export const App = () =>{
 	const [data,setData] = useState([]);
 	useEffect(()=>{
-		Axios.get('http://localhost:8000/summaries/2024090500/drive_summary').pipe(
+		const g1 = '2024090500';
+		const g2 = '2024090800';
+		const g3 = '2024090805';
+		const g4 = '2024092301';
+		Axios.get(`http://localhost:8000/summaries/${g4}/drive_summary`).pipe(
 			map(result=>result.data)
 		).subscribe((gamedata)=>{
 			console.log(gamedata);

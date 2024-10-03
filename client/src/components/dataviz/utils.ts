@@ -1,4 +1,4 @@
-import {BaseType, Selection} from '@types/d3'
+import {BaseType, Selection, Series} from '@types/d3'
 
 type SvgSelection = Selection<SVGSVGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, HTMLElement, any> 
@@ -46,6 +46,20 @@ const setPlotArea = (svg: SvgSelection, dims:FigureDimensions): SvgSelection => 
 };
 
 
+/* STACK HELPER FUNCTIONS */
+const computeStackMinMax = (data: Series<{[key:string]:Array<any>},string>)=>{
+    const lower = data[0] as Array<any>;
+    const upper = data[data.length-1] as Array<any>;
+
+    const domainLower = lower[0][0];
+    const domainUpper = upper.reduce((a,b)=>{
+        return b[1] > a? b[1] : a;
+    },0);
+
+    return [domainLower, domainUpper]
+
+}
+
 export type {
     SvgSelection,
     FigureDimensions,
@@ -55,5 +69,6 @@ export type {
 export {
     computeDimensions,
     setSVG,
-    setPlotArea
+    setPlotArea,
+    computeStackMinMax
 }

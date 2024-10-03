@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import {PossibleYardageDriveRecord} from '../../../types/possible-yards'
 import { axisBottom, axisLeft, scaleLinear, select, Series, stack, Selection, Stack, scaleBand, interpolateRgbBasis, rgb } from 'd3';
-import { computeDimensions, FigureDimensions, setPlotArea, setSVG, SvgSelection } from '../../dataviz/utils';
+import { computeDimensions, computeStackMinMax, FigureDimensions, setPlotArea, setSVG, SvgSelection } from '../../dataviz/utils';
 import { PlotAxis } from '../../dataviz/types/axes';
 
 import '../../../styles/nfl.scss';
@@ -65,10 +65,7 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
         const xAxis = axisBottom(xScale);
         
         // yscales
-        const bottomStack = stackedData[0];
-        const topStack = stackedData[pyStack.length-1];
-        const n = bottomStack.length;
-        const yDomain = [bottomStack[0][0], topStack[n-1][1]];
+        const yDomain = computeStackMinMax(stackedData);
         const yScale = scaleLinear().domain(yDomain).range([dim.height, 0]);
         const yAxis = axisLeft(yScale);
 

@@ -312,40 +312,100 @@
 }
 
 .team{
-    &-az{}
-    &-atl{}
+    &-az{
+        fill: var(--az-primary);
+    }
+    &-atl{
+        fill: var(--atl-primary);
+    }
     &-bal{
         fill: var(--bal-primary);
     }
-    &-buf{}
-    &-car{}
-    &-chc{}
-    &-cin{}
-    &-cle{}
-    &-dal{}
-    &-den{}
-    &-det{}
-    &-gb{}
-    &-tex{}
-    &-ind{}
-    &-jax{}
+    &-buf{
+        fill: var(--buf-primary);
+    }
+    &-car{
+        fill: var(--car-primary);
+    }
+    &-chc{
+        fill: var(--chc-primary);
+    }
+    &-cin{
+        fill: var(--cin-primary);
+    }
+    &-cle{
+        fill: var(--cle-primary);
+    }
+    &-dal{
+        fill: var(--dal-primary);
+    }
+    &-den{
+        fill: var(--den-primary);
+    }
+    &-det{
+        fill: var(--det-primary);
+    }
+    &-gb{
+        fill: var(--gb-primary);
+    }
+    &-tex{
+        fill: var(--tex-primary);
+    }
+    &-ind{
+        fill: var(--ind-primary);
+    }
+    &-jax{
+        fill: var(--jax-primary);
+    }
     &-kc{
         fill: var(--kc-primary);
     }
-    &-lv{}
-    &-lac{}
-    &-lar{}
-    &-mia{}
-    &-min{}
-    &-ne{}
-    &-no{}
-    &-nyg{}
-    &-nyj{}
-    &-phi{}
-    &-pit{}
-    &-sf{}
-    &-sea{}
-    &-tb{}
-    &-ten{}
-    &-was{}
+    &-lv{
+        fill: var(--lv-primary);
+    }
+    &-lac{
+        fill: var(--lac-primary);
+    }
+    &-lar{
+        fill: var(--lar-primary);
+    }
+    &-mia{
+        fill: var(--mia-primary);
+    }
+    &-min{
+        fill: var(--min-primary);
+    }
+    &-ne{
+        fill: var(--ne-primary);
+    }
+    &-no{
+        fill: var(--no-primary);
+    }
+    &-nyg{
+        fill: var(--nyg-primary);
+    }
+    &-nyj{
+        fill: var(--nyj-primary);
+    }
+    &-phi{
+        fill: var(--phi-primary);
+    }
+    &-pit{
+        fill: var(--pit-primary);
+    }
+    &-sf{
+        fill: var(--sf-primary);
+    }
+    &-sea{
+        fill: var(--sea-primary);
+    }
+    &-tb{
+        fill: var(--tb-primary);
+    }
+    &-ten{
+        fill: var(--ten-primary);
+    }
+    &-was{
+        fill: var(--was-primary);
+    }
 }

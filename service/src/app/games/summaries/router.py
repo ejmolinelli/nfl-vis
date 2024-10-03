@@ -10,7 +10,15 @@ from src import DATA_DIRECTORY
 
 summaries = APIRouter(prefix="/summaries")
 
-
+# get all games by year
+@summaries.get('/games/')
+def get_all_games_by_year():
+    # read data
+    data_filepath = os.path.join(DATA_DIRECTORY, f'game_drive_summary_2024.pq')
+    df = read_parquet(data_filepath, engine='fastparquet')
+    
+    return df[['game_id','team_1','team_2']].drop_duplicates().to_dict(orient='records')
+    
 
 # get drive summary for a single game
 @summaries.get('/{game_id}/drive_summary')
