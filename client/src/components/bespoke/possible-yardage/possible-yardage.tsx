@@ -66,7 +66,7 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
         
         // yscales
         const yDomain = computeStackMinMax(stackedData);
-        const yScale = scaleLinear().domain(yDomain).range([dim.height, 0]);
+        const yScale = scaleLinear().domain([yDomain[0],100]).range([dim.height, 0]);
         const yAxis = axisLeft(yScale);
 
         // draw x-axis and move to bottom
