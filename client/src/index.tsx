@@ -16,17 +16,32 @@ export const App = () =>{
 	const g4 = '2024092301';
 	const g5 = '2024092207';
 
+	// game week data
+	const [games,setGames] = useState([]);
+
+	useEffect(()=>{
+		// Axios.get(`http://localhost:8000/summaries/games/team/WAS`).pipe(
+		// 	map(result=>result.data)
+		// ).subscribe((_games)=>{
+		// 	setGames(_games);
+		// });
+
+		Axios.get(`http://localhost:8000/summaries/games/week/2`).pipe(
+			map(result=>result.data)
+		).subscribe((_games)=>{
+			setGames(_games);
+		});
+	},[]);
+
 	return <BlueprintProvider>
         <div>My app has overlays, hotkeys, and portal customization 😎</div>
+
 		<BiPanel>
 			<h1>Tools</h1>
 			<div>
-				<p>Content goes here</p>
-				<PossibleYardageProvider gameid={g1}/>
-				<PossibleYardageProvider gameid={g2}/>
-				<PossibleYardageProvider gameid={g3}/>
-				<PossibleYardageProvider gameid={g4}/>
-				<PossibleYardageProvider gameid={g5}/>
+				{games.map((g)=>{
+					return <PossibleYardageProvider gameid={g.game_id} />
+				})}
 			</div>
 			
 		</BiPanel>

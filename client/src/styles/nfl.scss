@@ -1,10 +1,10 @@
 // NFL team colors
 :root{
     // arizona cardinals
-    --az-red: #97233F;
-    --az-black: #000;
-    --az-yellow: #FFB612;
-    --az-white: #FFF;
+    --ari-red: #97233F;
+    --ari-black: #000;
+    --ari-yellow: #FFB612;
+    --ari-white: #FFF;
 
     // atlanta falcons
     --atl-red: #A71930;
@@ -28,9 +28,9 @@
     --car-silver: #BFC0BF;
 
     // chicago bears
-    --chc-navy: #0B162A;
-    --chc-orange: #C83803;
-    --chc-white: #FFF;
+    --chi-navy: #0B162A;
+    --chi-orange: #C83803;
+    --chi-white: #FFF;
 
     // cincinnati bengals
     --cin-orange: #FB4F14;
@@ -66,9 +66,9 @@
     --gb-white: #fff;
 
     // houston texans
-    --tex-blue: #03202F;
-    --tex-red: #A71930;
-    --tex-white: #FFF;
+    --hou-blue: #03202F;
+    --hou-red: #A71930;
+    --hou-white: #FFF;
 
     // indianapolis colts
     --ind-blue: #002C5F;
@@ -97,11 +97,11 @@
     --lac-white: #FFF;
 
     // los angeles rams
-    --lar-blue: #003594;
-    --lar-gold: #FFA300;
-    --lar-dark-gold: #FF8200;
-    --lar-yellow: #FFD100;
-    --lar-white: #FFFFFF;
+    --la-blue: #003594;
+    --la-gold: #FFA300;
+    --la-dark-gold: #FF8200;
+    --la-yellow: #FFD100;
+    --la-white: #FFFFFF;
 
     // miami dolphins
     --mia-aqua: #008E97;
@@ -183,8 +183,8 @@
 // single tone, 2 color combinations
 :root{
     // arizona cardinals
-    --az-primary: var(--az-red);
-    --az-secondary: var(--az-white);
+    --ari-primary: var(--ari-red);
+    --ari-secondary: var(--ari-white);
 
     // atlanta falcons
     --atl-primary: var(--atl-red);
@@ -192,7 +192,7 @@
 
     // baltimore ravens
     --bal-primary: var(--bal-purple);
-    --bal-secondary:var(--bal-gold)
+    --bal-secondary:var(--bal-gold);
 
     // buffalo bills
     --buf-primary: var(--buf-blue);
@@ -203,8 +203,8 @@
     --car-secondary: var(--car-silver);
 
     // chicago bears
-    --chc-primary: var(--chc-navy);
-    --chc-secondary: var(--chc-orange);
+    --chi-primary: var(--chi-navy);
+    --chi-secondary: var(--chi-orange);
 
     // cincinnati bengals
     --cin-primary: var(--cin-orange);
@@ -231,8 +231,8 @@
     --gb-secondary: var(--gb-gold);
 
     // houston texans
-    --tex-primary: var(--tex-blue);
-    --tex-secondary: var(--tex-red);
+    --hou-primary: var(--hou-blue);
+    --hou-secondary: var(--hou-red);
 
     // indianapolis colts
     --ind-primary: var(--ind-blue);
@@ -255,8 +255,8 @@
     --lac-secondary: var(--lac-gold);
 
     // los angeles rams
-    --lar-primary: var(--lar-blue);
-    --lar-secondary: var(--lar-yellow);
+    --la-primary: var(--la-blue);
+    --la-secondary: var(--la-yellow);
 
     // miami dolphins
     --mia-primary: var(--mia-aqua);
@@ -312,8 +312,8 @@
 }
 
 .team{
-    &-az{
-        fill: var(--az-primary);
+    &-ari{
+        fill: var(--ari-primary);
     }
     &-atl{
         fill: var(--atl-primary);
@@ -327,8 +327,8 @@
     &-car{
         fill: var(--car-primary);
     }
-    &-chc{
-        fill: var(--chc-primary);
+    &-chi{
+        fill: var(--chi-primary);
     }
     &-cin{
         fill: var(--cin-primary);
@@ -348,8 +348,8 @@
     &-gb{
         fill: var(--gb-primary);
     }
-    &-tex{
-        fill: var(--tex-primary);
+    &-hou{
+        fill: var(--hou-primary);
     }
     &-ind{
         fill: var(--ind-primary);
@@ -366,8 +366,8 @@
     &-lac{
         fill: var(--lac-primary);
     }
-    &-lar{
-        fill: var(--lar-primary);
+    &-la{
+        fill: var(--la-primary);
     }
     &-mia{
         fill: var(--mia-primary);

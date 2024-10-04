@@ -37,11 +37,10 @@ type StackedYardage = Stack<any,any,any>;
 
 const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
     const svgRef = useRef('');
-    const [pyStack, setPyStack] = useState<Series<{
-        gained_yards:number,
-        left_yards: number
-    }, AmendedPossibleYardageRecord>>();
+    const team1 = data.length ? data[0].team_1 : null;
+    const team2 = data.length ? data[0].team_2 : null;
 
+    // this function creates stacks from summary data
     const stackGenerator = stack().keys(["gained_yards", "left_yards"]);
 
     // react to changes in input data
@@ -50,9 +49,6 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
         const stackedData = stackGenerator(data.map(dp => {
             return {...dp, left_yards: dp.possible_yards-dp.gained_yards}
         }));
-        
-        // @ts-ignore
-        setPyStack(stackedData);
         draw(stackedData);
     },[data]);
 
@@ -65,9 +61,10 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
         const xAxis = axisBottom(xScale);
         
         // yscales
-        const yDomain = computeStackMinMax(stackedData);
-        const yScale = scaleLinear().domain([yDomain[0],100]).range([dim.height, 0]);
-        const yAxis = axisLeft(yScale);
+        const yScale = scaleLinear().domain([-100,100]).range([dim.height, 0]);
+        const yAxis = axisLeft(yScale).tickFormat((d:number)=>{
+            return Math.abs(Number(d));
+        });
 
         // draw x-axis and move to bottom
         const xAxisArea = g.append("g").attr("class","x-axis")
@@ -88,7 +85,7 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
 
 
         // create a new group for each stack level
-        const barsel:SvgSelection = g.selectAll('g.bars').data(stackedData)
+        g.selectAll('g.bars').data(stackedData)
             .join('g').classed('bars',true)
             .attr("class",(_,i)=>{
                 if (i==0){
@@ -99,7 +96,6 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
             });
         
         const ly = g.select("g.left-yards");
-        console.log(ly);
 
         // plot gained yards by team
         g.selectAll("g.gained-yards").data(stackedData[0])
@@ -113,10 +109,17 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
                 return x.scale(i.toString());
             })
             .attr('y',(d)=>{
-                return y.scale(d[1]);
+                const isTeam1 = d.data.team == team1;
+                if (isTeam1){
+                    // align to baseline
+                    return y.scale(d[1]);
+                } else {
+                    return y.scale(0);
+                }
             })
             .attr('height',(d)=>{
                 return y.scale(d[0]) - y.scale(d[1]);
+                
             });
 
         g.selectAll("g.left-yards").data(stackedData[1])
@@ -130,10 +133,22 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
                 return x.scale(i.toString());
             })
             .attr('y',(d)=>{
-                return y.scale(d[1]);
+                const isTeam1 = d.data.team == team1;
+                if (isTeam1){
+                    // align to baseline
+                    return y.scale(d[1]);
+                } else {
+                    return y.scale(-1*d[0]);
+                }
             })
             .attr('height',(d)=>{
-                return y.scale(d[0]) - y.scale(d[1]);
+                const isTeam1 = d.data.team == team1;
+                if (isTeam1){
+                    return y.scale(d[0]) - y.scale(d[1]);
+                } else {
+                    return y.scale(-1*d[1])-y.scale(-1*d[0]);
+                }
+                
             });
 
     }
