@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import {PossibleYardageDriveRecord} from '../../../types/possible-yards'
 import { axisBottom, axisLeft, scaleLinear, select, Series, stack, Selection, Stack, scaleBand, interpolateRgbBasis, rgb } from 'd3';
-import { computeDimensions, computeStackMinMax, FigureDimensions, setPlotArea, setSVG, SvgSelection } from '../../dataviz/utils';
+import { computeDimensions, computeStackMinMax, FigureDimensions, setMarginArea, setPlotArea, setSVG, SvgSelection } from '../../dataviz/utils';
 import { PlotAxis } from '../../dataviz/types/axes';
 
 import '../../../styles/nfl.scss';
@@ -49,7 +49,31 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
         const stackedData = stackGenerator(data.map(dp => {
             return {...dp, left_yards: dp.possible_yards-dp.gained_yards}
         }));
-        draw(stackedData);
+
+        // stackedData : per drive
+        
+
+        // aggStack: aggregate over game
+        // @ts-ignore
+        const gameData = data.reduce((a,b)=>{
+            const idx = b.team===team1? 0 : 1;
+            if (a[idx]["possible_yards"]){
+                a[idx]["possible_yards"] += b["possible_yards"]
+                a[idx]["gained_yards"] += b["gained_yards"];
+            } else {
+                a[idx] = {...b};
+            }
+            return a;
+        }, [{},{}]);
+
+        const aggregateStack = stackGenerator(gameData.map(d=>{
+            // @ts-ignore
+            return {...d, left_yards: d.possible_yards-d.gained_yards}
+        }));
+    
+        draw(stackedData, aggregateStack);
+
+
     },[data]);
 
 
@@ -80,6 +104,18 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
             y:{scale:yScale, axis: yAxis, g:yAxisArea}
         }
     };
+
+    const drawSummaryAxes = (g:SvgSelection, dim: FigureDimensions, stackedData: any): {x:PlotAxis, y:PlotAxis} => {
+        // no x-axis needed
+
+        const maxYardage = Math.max(...stackedData[1][1]);
+        const yScale = scaleLinear().domain([-1*maxYardage, maxYardage]).range([dim.height,0]);
+        const yAxis = axisLeft(yScale).tickFormat((d)=>Math.abs(d));
+        
+        const yAxisArea = g.append('g').attr('class','y-axis').call(yAxis);
+        return {x:{scale:null, axis:null, g:null}, y:{scale:yScale, axis:yAxis, g:yAxisArea}};
+    }
+
 
     const drawBars = (g:SvgSelection, dim:FigureDimensions, x:PlotAxis, y:PlotAxis, stackedData:any):void =>{
 
@@ -153,6 +189,76 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
 
     }
 
+    const drawSummaryBar = (g: SvgSelection, dim: FigureDimensions, x:PlotAxis, y:PlotAxis, stackedData: any): void => {
+        // create a new group for each stack level
+        g.selectAll('g.bars').data(stackedData)
+            .join('g').classed('bars',true)
+            .attr("class",(_,i)=>{
+                if (i==0){
+                    return "gained-yards";
+                } else {
+                    return "left-yards";
+                }
+            });
+        
+        const ly = g.select("g.left-yards");
+
+        // plot gained yards by team
+        g.selectAll("g.gained-yards").data([[],...stackedData[0]])
+            .enter()
+            .append('rect')
+            .attr('width',20)
+            .attr('class',(d)=>{
+                return `team-${String(d.data['team']).toLowerCase()}`;
+            })
+            .attr('x',(d,i)=>{
+                return 0;
+            })
+            .attr('y',(d)=>{
+                const isTeam1 = d.data.team == team1;
+                console.log(`team 1 is ${team1} and team is ${d.data.team}`);
+                if (isTeam1){
+                    // align to baseline
+                    return y.scale(d[1]);
+                } else {
+                    return y.scale(0);
+                }
+            })
+            .attr('height',(d)=>{
+                return y.scale(d[0]) - y.scale(d[1]);
+                
+            });
+
+        g.selectAll("g.left-yards").data([[], ...stackedData[1]])
+            .enter()
+            .append('rect')
+            .attr('width',20)
+            .attr('fill',(d)=>{
+                return rgb(100,100,100,0.25);
+            })
+            .attr('x',(d,i)=>{
+                return 0;
+            })
+            .attr('y',(d)=>{
+                const isTeam1 = d.data.team == team1;
+                if (isTeam1){
+                    // align to baseline
+                    return y.scale(d[1]);
+                } else {
+                    return y.scale(-1*d[0]);
+                }
+            })
+            .attr('height',(d)=>{
+                const isTeam1 = d.data.team == team1;
+                if (isTeam1){
+                    return y.scale(d[0]) - y.scale(d[1]);
+                } else {
+                    return y.scale(-1*d[1])-y.scale(-1*d[0]);
+                }
+                
+            });
+    }
+
     const drawTitle = (g:SvgSelection, dim:FigureDimensions, data) =>{
         const titleGroup = g.append('g').attr('class','plot-title')
             .attr('transform',`translate(${dim.width/2},${dim.margin.top})`)
@@ -163,24 +269,27 @@ const PossibleYardage = ({data,width, height}:PossibleYardageProps)=>{
         return titleGroup;
     }
 
-    const draw = useCallback((stackedData)=>{
+    const draw = useCallback((stackedData, aggregateStack)=>{
         if (stackedData[0].length==0){
             return;
         }
 
         // figure dimensions
-        const figdim = computeDimensions(width, height, {left:50,right:0, top:50, bottom:50});
+        const figdim = computeDimensions(width, height, {left:50,right:50, top:50, bottom:50});
 
         const svg = setSVG(select(svgRef.current), figdim);
 
         // create plot area and return selection handler
         const plotArea = setPlotArea(svg, figdim);
+        const summaryArea = setMarginArea(svg, figdim, 'right');
 
         // create and draw axes based on data
         const {x,y} = drawAxes(plotArea, figdim, stackedData);
+        const r = drawSummaryAxes(summaryArea, figdim, aggregateStack);
 
         // create and draw bars
         drawBars(plotArea, figdim, x, y, stackedData);
+        drawSummaryBar(summaryArea, figdim, r.x, r.y, aggregateStack);
 
         // draw ttitle
         drawTitle(svg, figdim, data);

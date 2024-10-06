@@ -45,6 +45,25 @@ const setPlotArea = (svg: SvgSelection, dims:FigureDimensions): SvgSelection => 
     return plotArea as SvgSelection;
 };
 
+const setMarginArea = (svg: SvgSelection, dims: FigureDimensions, which:'left'|'right'|'top'|'bottom'): SvgSelection => {
+    let offsetLeft, offsetTop;
+    if (which=='left'){
+        offsetLeft = 0;
+        offsetTop = dims.margin.top;
+    } else if (which==="right"){
+        offsetLeft = dims.margin.left + dims.width;
+        offsetTop = dims.margin.top;
+    } else if (which==="top"){
+        offsetLeft = 0;
+        offsetTop = 0;
+    } else if (which==="bottom"){
+        offsetLeft = 0;
+        offsetTop = dims.height + dims.margin.top;
+    }
+    return svg.append('g').attr("transform",`translate(${offsetLeft},${offsetTop})`);
+     
+}
+
 
 /* STACK HELPER FUNCTIONS */
 const computeStackMinMax = (data: Series<{[key:string]:Array<any>},string>)=>{
@@ -70,5 +89,6 @@ export {
     computeDimensions,
     setSVG,
     setPlotArea,
+    setMarginArea,
     computeStackMinMax
 }

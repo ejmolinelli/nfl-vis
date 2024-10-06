@@ -20,17 +20,17 @@ export const App = () =>{
 	const [games,setGames] = useState([]);
 
 	useEffect(()=>{
-		// Axios.get(`http://localhost:8000/summaries/games/team/WAS`).pipe(
-		// 	map(result=>result.data)
-		// ).subscribe((_games)=>{
-		// 	setGames(_games);
-		// });
-
-		Axios.get(`http://localhost:8000/summaries/games/week/2`).pipe(
+		Axios.get(`http://localhost:8000/summaries/games/team/WAS`).pipe(
 			map(result=>result.data)
 		).subscribe((_games)=>{
 			setGames(_games);
 		});
+
+		// Axios.get(`http://localhost:8000/summaries/games/week/2`).pipe(
+		// 	map(result=>result.data)
+		// ).subscribe((_games)=>{
+		// 	setGames(_games);
+		// });
 	},[]);
 
 	return <BlueprintProvider>
